@@ -12,8 +12,13 @@ import UIKit
 
 class historyViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    var message = Message()
+    
     override func viewDidLoad () {
+        super.viewDidLoad()
         
+        message = CoreDataHelper.newMessage()
+        message?.sender =
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -23,8 +28,9 @@ class historyViewController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "historyTableViewCell", for: indexPath) as! HistoryTableViewCell
         
+        let message =
         cell.fromLabel.text = "Grace"
-        cell.messageLabel.text = "dumbo, reveal yourself"
+        cell.messageLabel.text = message
         cell.timestampLabel.text = "time sent"
         
         
