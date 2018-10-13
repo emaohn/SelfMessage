@@ -20,10 +20,12 @@ class menuViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var newMessageContainerViewBottomConstraint: NSLayoutConstraint!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         newMessageContainerView.superview?.bringSubviewToFront(newMessageContainerView)
         NotificationCenter.default.addObserver(self, selector: #selector(toggleNewMessageView), name: NSNotification.Name("ToggleNewMessageView"), object: nil)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -74,5 +76,12 @@ extension menuViewController: UITableViewDelegate, UITableViewDataSource {
         
         return tableView.dequeueReusableCell(withIdentifier: "noFavoritesTableViewCell")!
         
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if favorites.count == 0 {
+            return 120
+        }
+        return 120
     }
 }

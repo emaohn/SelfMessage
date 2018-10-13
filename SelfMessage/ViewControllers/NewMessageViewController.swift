@@ -12,6 +12,8 @@ import UserNotifications
 
 class NewMessageViewController: UIViewController{
     
+    @IBOutlet weak var wholeView: UIView!
+    @IBOutlet weak var titleView: UIView!
     @IBOutlet weak var infoView: UIView!
     @IBOutlet weak var timeView: UIView!
     @IBOutlet weak var senderTextField: UITextField!
@@ -37,7 +39,18 @@ class NewMessageViewController: UIViewController{
             array.append(String(i))
         }
         
+        //changing the UI, corners rounded
+        wholeView.layer.cornerRadius = 6
+        titleView.layer.cornerRadius = 6
+        infoView.layer.cornerRadius = 6
+        timeView.layer.cornerRadius = 6
+        cancelButton.layer.cornerRadius = 6
+        doneButton.layer.cornerRadius = 6
+
+        doneButton.setTitleColor(UIColor.gray, for: UIControl.State.normal)
+        
         pickerData = array
+        
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge], completionHandler: {didAllow, error in
             if didAllow {
                 UserDefaults.standard.set(true, forKey: "notificationsEnabled")
@@ -53,20 +66,21 @@ class NewMessageViewController: UIViewController{
     }
     
     @IBAction func doneButtonPressed(_ sender: Any) {
-        if let sender = senderTextField.text,
-            let body = messageTextView.text {
+        if senderTextField.text != "" && messageTextView.text != "" {
             NotificationCenter.default.post(name: NSNotification.Name("ToggleNewMessageView"), object: nil)
             
-             let message = CoreDataHelper.newMessage()
-            message.sender = sender
-            message.message = body
+            let message = CoreDataHelper.newMessage()
+            message.sender = senderTextField.text
+            message.message = messageTextView.text
             message.sendTime = Date()
             
             let center = UNUserNotificationCenter.current()
             
             let content = UNMutableNotificationContent()
-            content.title = NSString.localizedUserNotificationString(forKey: sender, arguments: nil)
-            content.body = NSString.localizedUserNotificationString(forKey: body, arguments: nil)
+            
+//            guard let sender = senderTextField.text, let message2 = messageTextView.text else { return }
+            content.title = NSString.localizedUserNotificationString(forKey: senderTextField.text ?? "", arguments: nil)
+            content.body = NSString.localizedUserNotificationString(forKey: messageTextView.text, arguments: nil)
             
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval * 60, repeats: false)
             let request = UNNotificationRequest(identifier: "notification", content: content, trigger: trigger)
@@ -78,14 +92,14 @@ class NewMessageViewController: UIViewController{
             CoreDataHelper.saveMessage()
         } else {
             // Create the alert controller
-            let alertController = UIAlertController(title: "Please fill in all blank spaces", message: "", preferredStyle: UIAlertController.Style.alert)
+            let alertController = UIAlertController(title: "Fill in all blanks before sending", message: "", preferredStyle: UIAlertController.Style.alert)
             //alertController.view.tintColor = .tcDarkGrey
             
             let subview = (alertController.view.subviews.first?.subviews.first?.subviews.first!)! as UIView
             subview.backgroundColor = UIColor(red: 254/255, green: 254/255, blue: 254/255, alpha: 1)
             
             // Create the actions
-            let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
+            let okAction = UIAlertAction(title: "Okay", style: UIAlertAction.Style.default) {
                 UIAlertAction in
             }
             
@@ -127,8 +141,15 @@ extension NewMessageViewController {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(NewMessageViewController.dismissKeyboard))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
+        
+        
     }
     @objc func dismissKeyboard() {
         view.endEditing(true)
+        
+        if senderTextField.text != "" && messageTextView.text != "" {
+            doneButton.setTitleColor(UIColor.black, for: UIControl.State.normal)
+        }
     }
+    
 }
