@@ -12,28 +12,36 @@ import UIKit
 
 class historyViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var message = Message()
+    var messages = [Message]() {
+        didSet {
+            messagesTableView.reloadData()
+        }
+    }
+    
+    @IBOutlet weak var messagesTableView: UITableView!
     
     override func viewDidLoad () {
         super.viewDidLoad()
         
-        message = CoreDataHelper.newMessage()
-        message?.sender =
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        messages = CoreDataHelper.retrieveMessage()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 15
+        return messages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "historyTableViewCell", for: indexPath) as! HistoryTableViewCell
         
-        let message =
-        cell.fromLabel.text = "Grace"
-        cell.messageLabel.text = message
-        cell.timestampLabel.text = "time sent"
-        
-        
+        let message = messages[indexPath.row]
+        cell.fromLabel.text = message.sender
+        cell.messageLabel.text = message.message
+        cell.timestampLabel.text = message.sendTime?.convertToString() //you probs have to write your own to string function
+    
         return cell
     }
     

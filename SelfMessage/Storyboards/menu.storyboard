@@ -113,6 +113,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="newMessageContainerView" destination="5Qt-Ak-9fy" id="iuM-Hz-FYz"/>
+                        <outlet property="newMessageContainerViewBottomConstraint" destination="RFD-sR-j20" id="wf1-Yy-8Hq"/>
                         <outlet property="tableView" destination="ahH-y8-koS" id="aQc-oM-CZj"/>
                     </connections>
                 </viewController>
@@ -139,10 +141,10 @@
             </objects>
             <point key="canvasLocation" x="399.19999999999999" y="-350.37481259370315"/>
         </scene>
-        <!--View Controller-->
+        <!--New Message View Controller-->
         <scene sceneID="S2D-Bq-Ad7">
             <objects>
-                <viewController id="83E-TW-mz2" sceneMemberID="viewController">
+                <viewController id="83E-TW-mz2" customClass="NewMessageViewController" customModule="SelfMessage" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RRj-PL-E0V">
                         <rect key="frame" x="0.0" y="0.0" width="327" height="500"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -250,14 +252,33 @@
                                             <constraint firstAttribute="height" constant="130" id="u02-xe-PQd"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QGV-XQ-LrH">
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="CMa-bY-871">
                                         <rect key="frame" x="0.0" y="350" width="297" height="50"/>
-                                        <color key="backgroundColor" red="0.99215686270000003" green="0.99215686270000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QGV-XQ-LrH">
+                                                <rect key="frame" x="0.0" y="0.0" width="141" height="50"/>
+                                                <color key="backgroundColor" red="0.99215686270000003" green="0.99215686270000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="Le6-Sj-5du"/>
+                                                </constraints>
+                                                <state key="normal" title="CANCEL"/>
+                                                <connections>
+                                                    <action selector="cancelButtonPressed:" destination="83E-TW-mz2" eventType="touchUpInside" id="Gas-pH-zbe"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gfq-B7-nLA">
+                                                <rect key="frame" x="156" y="0.0" width="141" height="50"/>
+                                                <color key="backgroundColor" red="0.99215686270000003" green="0.99215686270000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <state key="normal" title="DONE"/>
+                                                <connections>
+                                                    <action selector="doneButtonPressed:" destination="83E-TW-mz2" eventType="touchUpInside" id="J8p-e9-TNh"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="Le6-Sj-5du"/>
+                                            <constraint firstItem="gfq-B7-nLA" firstAttribute="width" secondItem="QGV-XQ-LrH" secondAttribute="width" id="v2q-f7-HUG"/>
                                         </constraints>
-                                        <state key="normal" title="DONE"/>
-                                    </button>
+                                    </stackView>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -273,6 +294,15 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Yre-H4-fIl"/>
                     </view>
+                    <connections>
+                        <outlet property="cancelButton" destination="QGV-XQ-LrH" id="UV7-uK-Azy"/>
+                        <outlet property="doneButton" destination="gfq-B7-nLA" id="Cgr-WS-1JS"/>
+                        <outlet property="infoView" destination="QOH-eU-ahz" id="mK3-ua-FmQ"/>
+                        <outlet property="messageTextView" destination="svR-8D-Kzd" id="SVO-0r-WOm"/>
+                        <outlet property="senderTextField" destination="Wad-V8-lYT" id="W6x-6L-4RK"/>
+                        <outlet property="setTimeTextField" destination="Dvg-tR-eyc" id="HqG-ph-08s"/>
+                        <outlet property="timeView" destination="NkV-fP-hAL" id="wlp-ck-rni"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kcV-eD-FyT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

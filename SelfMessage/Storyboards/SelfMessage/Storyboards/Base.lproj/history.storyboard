@@ -117,6 +117,9 @@
                         <viewLayoutGuide key="safeArea" id="bJP-Ju-lSp"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 2" id="x2o-NW-qih"/>
+                    <connections>
+                        <outlet property="messagesTableView" destination="eYd-1f-jnR" id="dX8-ft-3fc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8o3-Xj-U7S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
