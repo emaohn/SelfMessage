@@ -35,18 +35,22 @@ class historyViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "historyTableViewCell", for: indexPath) as! HistoryTableViewCell
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "previousMessageTableViewCell", for: indexPath) as! previousMessageTableViewCell
         let message = messages[indexPath.row]
-        cell.fromLabel.text = message.sender
-        cell.messageLabel.text = message.message
-        cell.timestampLabel.text = message.sendTime?.convertToString() //you probs have to write your own to string function
-    
+        if let sender = message.sender, let body = message.message, let sendTime = message.sendTime {
+            cell.senderLabel.text = sender
+            cell.messageLabel.text = body
+            cell.timeStampLabel.text = sendTime.convertToString()
+        }
+        
+        cell.favoriteButtonTouched = {(cell) in guard tableView.indexPath(for: cell) != nil
+            else { return }
+        }
+        
         return cell
     }
     
-    @IBAction func favButtonPressed(_ sender: Any) {
-        
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 125
     }
-    
 }

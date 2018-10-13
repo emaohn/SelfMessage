@@ -9,9 +9,11 @@
 /* Begin PBXBuildFile section */
 		8465CBEF2171C249003B763C /* history.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8465CBED2171C249003B763C /* history.storyboard */; };
 		8465CBF12171C27B003B763C /* menu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8465CBF02171C27B003B763C /* menu.storyboard */; };
-		8465CBF32171C649003B763C /* historyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8465CBF22171C649003B763C /* historyTableViewCell.swift */; };
 		8465CBF52171D3C8003B763C /* DateConvertToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8465CBF42171D3C8003B763C /* DateConvertToString.swift */; };
 		E84AE0DC2171E9CB004CAD04 /* NewMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84AE0DB2171E9CB004CAD04 /* NewMessageViewController.swift */; };
+		E89C468F21723E5600D9C316 /* icons8-star.png in Resources */ = {isa = PBXBuildFile; fileRef = E89C468E21723E5600D9C316 /* icons8-star.png */; };
+		E89C469121723E5E00D9C316 /* icons8-star_filled.png in Resources */ = {isa = PBXBuildFile; fileRef = E89C469021723E5E00D9C316 /* icons8-star_filled.png */; };
+		E89C46932172412D00D9C316 /* previousMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89C46922172412D00D9C316 /* previousMessageTableViewCell.swift */; };
 		E8BC64972171BD3300D4A756 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8BC64962171BD3300D4A756 /* AppDelegate.swift */; };
 		E8BC649C2171BD3300D4A756 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E8BC649A2171BD3300D4A756 /* Main.storyboard */; };
 		E8BC649F2171BD3300D4A756 /* SelfMessage.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E8BC649D2171BD3300D4A756 /* SelfMessage.xcdatamodeld */; };
@@ -26,9 +28,11 @@
 /* Begin PBXFileReference section */
 		8465CBEE2171C249003B763C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = SelfMessage/Storyboards/Base.lproj/history.storyboard; sourceTree = "<group>"; };
 		8465CBF02171C27B003B763C /* menu.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = menu.storyboard; sourceTree = "<group>"; };
-		8465CBF22171C649003B763C /* historyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = historyTableViewCell.swift; sourceTree = "<group>"; };
 		8465CBF42171D3C8003B763C /* DateConvertToString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateConvertToString.swift; sourceTree = "<group>"; };
 		E84AE0DB2171E9CB004CAD04 /* NewMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageViewController.swift; sourceTree = "<group>"; };
+		E89C468E21723E5600D9C316 /* icons8-star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icons8-star.png"; sourceTree = "<group>"; };
+		E89C469021723E5E00D9C316 /* icons8-star_filled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icons8-star_filled.png"; sourceTree = "<group>"; };
+		E89C46922172412D00D9C316 /* previousMessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = previousMessageTableViewCell.swift; sourceTree = "<group>"; };
 		E8BC64932171BD3300D4A756 /* SelfMessage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SelfMessage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8BC64962171BD3300D4A756 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E8BC649B2171BD3300D4A756 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -72,7 +76,6 @@
 		E8BC64952171BD3300D4A756 /* SelfMessage */ = {
 			isa = PBXGroup;
 			children = (
-				8465CBF22171C649003B763C /* historyTableViewCell.swift */,
 				8465CBF42171D3C8003B763C /* DateConvertToString.swift */,
 				E8BC64AE2171BE0A00D4A756 /* Helpers */,
 				E8BC64AD2171BE0300D4A756 /* Views */,
@@ -80,6 +83,8 @@
 				E8BC64AB2171BDE500D4A756 /* Storyboards */,
 				E8BC64962171BD3300D4A756 /* AppDelegate.swift */,
 				E8BC64A02171BD3500D4A756 /* Assets.xcassets */,
+				E89C468E21723E5600D9C316 /* icons8-star.png */,
+				E89C469021723E5E00D9C316 /* icons8-star_filled.png */,
 				E8BC64A52171BD3500D4A756 /* Info.plist */,
 				E8BC649D2171BD3300D4A756 /* SelfMessage.xcdatamodeld */,
 			);
@@ -111,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				E8BC64B52171CB0100D4A756 /* messageTableViewCell.swift */,
+				E89C46922172412D00D9C316 /* previousMessageTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -183,9 +189,11 @@
 			files = (
 				E8BC64A42171BD3500D4A756 /* LaunchScreen.storyboard in Resources */,
 				E8BC64A12171BD3500D4A756 /* Assets.xcassets in Resources */,
+				E89C469121723E5E00D9C316 /* icons8-star_filled.png in Resources */,
 				E8BC649C2171BD3300D4A756 /* Main.storyboard in Resources */,
 				8465CBF12171C27B003B763C /* menu.storyboard in Resources */,
 				8465CBEF2171C249003B763C /* history.storyboard in Resources */,
+				E89C468F21723E5600D9C316 /* icons8-star.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,12 +206,12 @@
 			files = (
 				E8BC649F2171BD3300D4A756 /* SelfMessage.xcdatamodeld in Sources */,
 				E84AE0DC2171E9CB004CAD04 /* NewMessageViewController.swift in Sources */,
+				E89C46932172412D00D9C316 /* previousMessageTableViewCell.swift in Sources */,
 				8465CBF52171D3C8003B763C /* DateConvertToString.swift in Sources */,
 				E8BC64B02171BE8200D4A756 /* CoreDataHelper.swift in Sources */,
 				E8BC64972171BD3300D4A756 /* AppDelegate.swift in Sources */,
 				E8BC64B62171CB0100D4A756 /* messageTableViewCell.swift in Sources */,
 				E8BC64B22171C07400D4A756 /* menuViewController.swift in Sources */,
-				8465CBF32171C649003B763C /* historyTableViewCell.swift in Sources */,
 				E8BC64B42171C0F900D4A756 /* historyViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
