@@ -18,6 +18,8 @@ class historyViewController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
+    var favoritedMessages = [Message]()
+    
     @IBOutlet weak var messagesTableView: UITableView!
     
     override func viewDidLoad () {
@@ -36,15 +38,37 @@ class historyViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "previousMessageTableViewCell", for: indexPath) as! previousMessageTableViewCell
-        let message = messages[indexPath.row]
+        var message = messages[indexPath.row]
         if let sender = message.sender, let body = message.message, let sendTime = message.sendTime {
             cell.senderLabel.text = sender
             cell.messageLabel.text = body
             cell.timeStampLabel.text = sendTime.convertToString()
+           
+            if message.favorite == true {
+                cell.favoriteButton.isSelected = true
+            } else {
+                cell.favoriteButton.isSelected = false
+            }
         }
         
-        cell.favoriteButtonTouched = {(cell) in guard tableView.indexPath(for: cell) != nil
+        cell.favoriteButtonTouched = {(cell1) in guard tableView.indexPath(for: cell1) != nil
             else { return }
+            
+            if !cell.favoriteButton.isSelected {
+                cell.favoriteButton.isSelected = false
+                message.favorite = false
+                for i in 0...self.favoritedMessages.count {
+                    let favoriteMessage = self.favoritedMessages[i]
+                    if cell.senderLabel.text == favoriteMessage.sender && cell.messageLabel.text == favoriteMessage.message {
+                        self.favoritedMessages.remove(at: i)
+                    }
+                }
+            } else {
+                cell.favoriteButton.isSelected = true
+                message.favorite = true
+                self.favoritedMessages.append(message)
+            }
+        
         }
         
         return cell

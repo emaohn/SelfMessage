@@ -27,6 +27,11 @@ struct CoreDataHelper {
         return message
     }
     
+    static func newFavoriteMessages() -> FavoritedMessages {
+        let favoritedMessages = NSEntityDescription.insertNewObject(forEntityName: "FavoritedMessages", into: context) as! FavoritedMessages
+        return favoritedMessages
+    }
+    
     static func saveMessage() {
         do {
             try context.save()
@@ -35,7 +40,7 @@ struct CoreDataHelper {
         }
     }
     
-    static func delete(message: Message) {
+    static func deleteMessage(message: Message) {
         context.delete(message)
         saveMessage()
     }
@@ -48,6 +53,17 @@ struct CoreDataHelper {
         } catch let error {
             print("Could not save \(error.localizedDescription)")
             return []
+        }
+    }
+    
+    static func retrieveFavoritedMessages() -> FavoritedMessages {
+        do {
+            let fetchRequest = NSFetchRequest<FavoritedMessages>(entityName: "FavoritedMessages")
+            let results = try context.fetch(fetchRequest)
+            return results[0]
+        } catch let error {
+            print("Could not save \(error.localizedDescription)")
+            return FavoritedMessages()
         }
     }
 }
