@@ -34,9 +34,20 @@ class NewMessageViewController: UIViewController{
         self.timeIntervalPickerView.delegate = self
         self.timeIntervalPickerView.dataSource = self
         
-        var array = [String]()
-        for i in 1...60 {
-            array.append(String(i))
+        var arrayMin = [String]()
+        for i in 1...59 {
+            arrayMin.append(String(i) + " min")
+        }
+        
+        var arrayHour = [String]()
+        for i in 0...23 {
+            if i == 0 {
+                arrayHour.append(String(i))
+            } else if i == 1 {
+                arrayHour.append(String(i) + "hour")
+            } else {
+                arrayHour.append(String(i) + "hours")
+            }
         }
         
         //changing the UI, corners rounded
@@ -49,7 +60,7 @@ class NewMessageViewController: UIViewController{
 
         doneButton.setTitleColor(UIColor.gray, for: UIControl.State.normal)
         
-        pickerData = array
+        pickerData = arrayHour + arrayMin
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge], completionHandler: {didAllow, error in
             if didAllow {
@@ -119,7 +130,7 @@ class NewMessageViewController: UIViewController{
 
 extension NewMessageViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
+        return 2
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
@@ -127,7 +138,7 @@ extension NewMessageViewController: UIPickerViewDataSource, UIPickerViewDelegate
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return pickerData[row]
+        return pickerData[component][row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
