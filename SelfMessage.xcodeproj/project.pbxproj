@@ -8,24 +8,26 @@
 
 /* Begin PBXBuildFile section */
 		E8BC64972171BD3300D4A756 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8BC64962171BD3300D4A756 /* AppDelegate.swift */; };
-		E8BC64992171BD3300D4A756 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8BC64982171BD3300D4A756 /* ViewController.swift */; };
 		E8BC649C2171BD3300D4A756 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E8BC649A2171BD3300D4A756 /* Main.storyboard */; };
 		E8BC649F2171BD3300D4A756 /* SelfMessage.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E8BC649D2171BD3300D4A756 /* SelfMessage.xcdatamodeld */; };
 		E8BC64A12171BD3500D4A756 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E8BC64A02171BD3500D4A756 /* Assets.xcassets */; };
 		E8BC64A42171BD3500D4A756 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E8BC64A22171BD3500D4A756 /* LaunchScreen.storyboard */; };
 		E8BC64B02171BE8200D4A756 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8BC64AF2171BE8200D4A756 /* CoreDataHelper.swift */; };
+		E8BC64B22171C07400D4A756 /* menuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8BC64B12171C07400D4A756 /* menuViewController.swift */; };
+		E8BC64B42171C0F900D4A756 /* historyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8BC64B32171C0F900D4A756 /* historyViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		E8BC64932171BD3300D4A756 /* SelfMessage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SelfMessage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8BC64962171BD3300D4A756 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E8BC64982171BD3300D4A756 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E8BC649B2171BD3300D4A756 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E8BC649E2171BD3300D4A756 /* SelfMessage.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SelfMessage.xcdatamodel; sourceTree = "<group>"; };
 		E8BC64A02171BD3500D4A756 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E8BC64A32171BD3500D4A756 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E8BC64A52171BD3500D4A756 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E8BC64AF2171BE8200D4A756 /* CoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
+		E8BC64B12171C07400D4A756 /* menuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = menuViewController.swift; sourceTree = "<group>"; };
+		E8BC64B32171C0F900D4A756 /* historyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = historyViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,7 +84,8 @@
 		E8BC64AC2171BDF500D4A756 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				E8BC64982171BD3300D4A756 /* ViewController.swift */,
+				E8BC64B12171C07400D4A756 /* menuViewController.swift */,
+				E8BC64B32171C0F900D4A756 /* historyViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -174,9 +177,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				E8BC649F2171BD3300D4A756 /* SelfMessage.xcdatamodeld in Sources */,
-				E8BC64992171BD3300D4A756 /* ViewController.swift in Sources */,
 				E8BC64B02171BE8200D4A756 /* CoreDataHelper.swift in Sources */,
 				E8BC64972171BD3300D4A756 /* AppDelegate.swift in Sources */,
+				E8BC64B22171C07400D4A756 /* menuViewController.swift in Sources */,
+				E8BC64B42171C0F900D4A756 /* historyViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
