@@ -18,49 +18,21 @@ class NewMessageViewController: UIViewController{
     @IBOutlet weak var timeView: UIView!
     @IBOutlet weak var senderTextField: UITextField!
     @IBOutlet weak var messageTextView: UITextView!
-    @IBOutlet weak var timeIntervalPickerView: UIPickerView!
+    
+    @IBOutlet weak var timePicker: UIDatePicker!
+    
     
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var doneButton: UIButton!
     
-    var pickerData = [String]()
+    var pickerData = [[String]]()
     var timeInterval = 5.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         reset()
+        setup()
         hideKeyboardWhenTappedAround()
-    
-        self.timeIntervalPickerView.delegate = self
-        self.timeIntervalPickerView.dataSource = self
-        
-        var arrayMin = [String]()
-        for i in 1...59 {
-            arrayMin.append(String(i) + " min")
-        }
-        
-        var arrayHour = [String]()
-        for i in 0...23 {
-            if i == 0 {
-                arrayHour.append(String(i))
-            } else if i == 1 {
-                arrayHour.append(String(i) + "hour")
-            } else {
-                arrayHour.append(String(i) + "hours")
-            }
-        }
-        
-        //changing the UI, corners rounded
-        wholeView.layer.cornerRadius = 6
-        titleView.layer.cornerRadius = 6
-        infoView.layer.cornerRadius = 6
-        timeView.layer.cornerRadius = 6
-        cancelButton.layer.cornerRadius = 6
-        doneButton.layer.cornerRadius = 6
-
-        doneButton.setTitleColor(UIColor.gray, for: UIControl.State.normal)
-        
-        pickerData = arrayHour + arrayMin
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge], completionHandler: {didAllow, error in
             if didAllow {
@@ -69,6 +41,21 @@ class NewMessageViewController: UIViewController{
                 UserDefaults.standard.set(false, forKey: "notificationsEnabled")
             }
         })
+    }
+    
+    func setup() {
+        //changing the UI, corners rounded
+        wholeView.layer.cornerRadius = 6
+        titleView.layer.cornerRadius = 6
+        infoView.layer.cornerRadius = 6
+        timeView.layer.cornerRadius = 6
+        cancelButton.layer.cornerRadius = 6
+        doneButton.layer.cornerRadius = 6
+        
+        doneButton.setTitleColor(UIColor.gray, for: UIControl.State.normal)
+        
+        timePicker.minuteInterval = 1
+
     }
     
     func reset() {
@@ -93,7 +80,13 @@ class NewMessageViewController: UIViewController{
             content.title = NSString.localizedUserNotificationString(forKey: senderTextField.text ?? "", arguments: nil)
             content.body = NSString.localizedUserNotificationString(forKey: messageTextView.text, arguments: nil)
             
-            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval * 60, repeats: false)
+            let interval = timePicker.date
+            let components = Calendar.current.dateComponents([.hour, .minute], from: interval)
+            let hour = components.hour
+            let minutes = components.minute
+            
+            let numSeconds = (hour! * 60 * 60) + (minutes! * 60)
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(numSeconds), repeats: false)
             let request = UNNotificationRequest(identifier: "notification", content: content, trigger: trigger)
             
             center.add(request)
@@ -128,25 +121,6 @@ class NewMessageViewController: UIViewController{
     }
 }
 
-extension NewMessageViewController: UIPickerViewDataSource, UIPickerViewDelegate {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 2
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return pickerData.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return pickerData[component][row]
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        guard let time = Double(pickerData[row]) else {return}
-        timeInterval = time
-    }
-
-}
 extension NewMessageViewController {
     func hideKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(NewMessageViewController.dismissKeyboard))

@@ -244,13 +244,12 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rFF-18-6Y4">
+                                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="countDownTimer" minuteInterval="1" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t5X-bz-fjm">
                                                         <rect key="frame" x="0.0" y="25" width="267" height="140"/>
-                                                        <connections>
-                                                            <outlet property="dataSource" destination="83E-TW-mz2" id="YwA-4I-uv8"/>
-                                                            <outlet property="delegate" destination="83E-TW-mz2" id="hNg-wP-mkN"/>
-                                                        </connections>
-                                                    </pickerView>
+                                                        <date key="date" timeIntervalSinceReferenceDate="561148578.16459">
+                                                            <!--2018-10-13 18:36:18 +0000-->
+                                                        </date>
+                                                    </datePicker>
                                                 </subviews>
                                             </stackView>
                                         </subviews>
@@ -319,7 +318,7 @@
                         <outlet property="infoView" destination="QOH-eU-ahz" id="mK3-ua-FmQ"/>
                         <outlet property="messageTextView" destination="svR-8D-Kzd" id="SVO-0r-WOm"/>
                         <outlet property="senderTextField" destination="Wad-V8-lYT" id="W6x-6L-4RK"/>
-                        <outlet property="timeIntervalPickerView" destination="rFF-18-6Y4" id="hdC-xp-XAn"/>
+                        <outlet property="timePicker" destination="t5X-bz-fjm" id="lo5-m5-KFn"/>
                         <outlet property="timeView" destination="NkV-fP-hAL" id="wlp-ck-rni"/>
                         <outlet property="titleView" destination="q7Y-99-TA7" id="ENH-cI-otE"/>
                         <outlet property="wholeView" destination="RRj-PL-E0V" id="HNG-jp-hS5"/>
