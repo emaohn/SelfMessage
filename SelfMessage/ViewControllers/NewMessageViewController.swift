@@ -10,22 +10,34 @@ import Foundation
 import UIKit
 import UserNotifications
 
-class NewMessageViewController: UIViewController {
+class NewMessageViewController: UIViewController{
     
     @IBOutlet weak var infoView: UIView!
     @IBOutlet weak var timeView: UIView!
     @IBOutlet weak var senderTextField: UITextField!
     @IBOutlet weak var messageTextView: UITextView!
-    @IBOutlet weak var timeIntervalLabel: UILabel!
-    @IBOutlet weak var timeStepper: UIStepper!
+    @IBOutlet weak var timeIntervalPickerView: UIPickerView!
+    
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var doneButton: UIButton!
+    
+    var pickerData = [String]()
+    var timeInterval = 5.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         reset()
         hideKeyboardWhenTappedAround()
+    
+        self.timeIntervalPickerView.delegate = self
+        self.timeIntervalPickerView.dataSource = self
         
+        var array = [String]()
+        for i in 1...60 {
+            array.append(String(i))
+        }
+        
+        pickerData = array
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge], completionHandler: {didAllow, error in
             if didAllow {
                 UserDefaults.standard.set(true, forKey: "notificationsEnabled")
@@ -36,10 +48,8 @@ class NewMessageViewController: UIViewController {
     }
     
     func reset() {
-        timeStepper.value = 5
         messageTextView.text = ""
         senderTextField.text = ""
-        timeIntervalLabel.text = "5 min"
     }
     
     @IBAction func doneButtonPressed(_ sender: Any) {
@@ -58,7 +68,7 @@ class NewMessageViewController: UIViewController {
             content.title = NSString.localizedUserNotificationString(forKey: sender, arguments: nil)
             content.body = NSString.localizedUserNotificationString(forKey: body, arguments: nil)
             
-            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeStepper.value * 60, repeats: false)
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval * 60, repeats: false)
             let request = UNNotificationRequest(identifier: "notification", content: content, trigger: trigger)
             
             center.add(request)
@@ -86,9 +96,6 @@ class NewMessageViewController: UIViewController {
             self.present(alertController, animated: true, completion: nil)
         }
     }
-    @IBAction func stepper(_ sender: UIStepper) {
-        timeIntervalLabel.text = "\(String(Int(sender.value))) min"
-    }
     
     @IBAction func cancelButtonPressed(_ sender: Any) {
         NotificationCenter.default.post(name: NSNotification.Name("ToggleNewMessageView"), object: nil)
@@ -96,6 +103,25 @@ class NewMessageViewController: UIViewController {
     }
 }
 
+extension NewMessageViewController: UIPickerViewDataSource, UIPickerViewDelegate {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerData.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return pickerData[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        guard let time = Double(pickerData[row]) else {return}
+        timeInterval = time
+    }
+
+}
 extension NewMessageViewController {
     func hideKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(NewMessageViewController.dismissKeyboard))
