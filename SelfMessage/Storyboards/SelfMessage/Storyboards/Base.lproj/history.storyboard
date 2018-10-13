@@ -61,6 +61,9 @@
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mqx-LQ-EtO">
                                                             <rect key="frame" x="296" y="46.5" width="46" height="30"/>
                                                             <state key="normal" title="Button"/>
+                                                            <connections>
+                                                                <action selector="favButtonPressed:" destination="HdO-0x-wkd" eventType="touchUpInside" id="d9a-vY-dax"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <constraints>

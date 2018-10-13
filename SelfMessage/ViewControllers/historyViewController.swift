@@ -8,7 +8,14 @@
 
 import Foundation
 import UIKit
+
+
 class historyViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    override func viewDidLoad () {
+        
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 15
     }
@@ -24,5 +31,8 @@ class historyViewController: UIViewController, UITableViewDataSource, UITableVie
         return cell
     }
     
+    @IBAction func favButtonPressed(_ sender: Any) {
+        
+    }
     
 }
