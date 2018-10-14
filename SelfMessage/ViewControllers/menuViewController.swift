@@ -59,22 +59,51 @@ class menuViewController: UIViewController {
 }
 
 extension menuViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if favorites.count != 0 {
-            return favorites.count + 1
-        }
-        
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            return 1
+        } else {
+            if favorites.count != 0 {
+                return favorites.count
+            }
+            return 1
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 35
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 35))
+        view.backgroundColor = UIColor(red: 90/255.0, green: 200/255.0, blue: 250/255.0, alpha: 1)
+        let label = UILabel(frame: CGRect(x: 15, y: 0, width: tableView.bounds.width - 30, height: 35))
+        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.textColor = UIColor.black
+        
+        switch section {
+        case 1:
+            label.text = "Favorite Messages"
+        default:
+            label.text = ""
+        }
+    
+        view.addSubview(label)
+        return view
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 0 {
+        if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "createMessageTableViewCell", for: indexPath)
             return cell
         }
         
         if favorites.count != 0 {
-            let message = favorites[indexPath.row - 1]
+            let message = favorites[indexPath.row]
             let cell = tableView.dequeueReusableCell(withIdentifier: "messageTableViewCell") as! messageTableViewCell
            // cell.senderLabel.text = message.sender
             cell.messageLabel.text = message.message
