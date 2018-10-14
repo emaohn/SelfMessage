@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14315.18" systemVersion="18A391" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14315.18" systemVersion="17G65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="FavoritedMessages" representedClassName="FavoritedMessages" syncable="YES" codeGenerationType="class">
-        <relationship name="message" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Message" inverseName="favoritedMessages" inverseEntity="Message" syncable="YES"/>
+        <relationship name="message" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Message" inverseName="favoritedMessages" inverseEntity="Message" syncable="YES"/>
     </entity>
     <entity name="Message" representedClassName="Message" syncable="YES" codeGenerationType="class">
         <attribute name="favorite" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
@@ -9,10 +9,10 @@
         <attribute name="numUsed" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="sender" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sendTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <relationship name="favoritedMessages" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="FavoritedMessages" inverseName="message" inverseEntity="FavoritedMessages" syncable="YES"/>
+        <relationship name="favoritedMessages" optional="YES" maxCount="1" deletionRule="Cascade" ordered="YES" destinationEntity="FavoritedMessages" inverseName="message" inverseEntity="FavoritedMessages" syncable="YES"/>
     </entity>
     <elements>
+        <element name="FavoritedMessages" positionX="-7.65625" positionY="223.58984375" width="128" height="60"/>
         <element name="Message" positionX="-54" positionY="-9" width="128" height="135"/>
-        <element name="FavoritedMessages" positionX="-54" positionY="27" width="128" height="60"/>
     </elements>
 </model>

@@ -56,14 +56,14 @@ struct CoreDataHelper {
         }
     }
     
-    static func retrieveFavoritedMessages() -> FavoritedMessages {
+    static func retrieveFavoritedMessages() -> [FavoritedMessages] {
         do {
             let fetchRequest = NSFetchRequest<FavoritedMessages>(entityName: "FavoritedMessages")
             let results = try context.fetch(fetchRequest)
-            return results[0]
+            return results
         } catch let error {
             print("Could not save \(error.localizedDescription)")
-            return FavoritedMessages()
+            return []
         }
     }
 }

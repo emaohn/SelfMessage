@@ -18,7 +18,9 @@ class historyViewController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
-    var favoritedMessages = [Message]()
+    var favoritedMessages: FavoritedMessages?
+    
+    var favoriteMessageArray: [Message] = []
     
     @IBOutlet weak var messagesTableView: UITableView!
     
@@ -30,6 +32,18 @@ class historyViewController: UIViewController, UITableViewDataSource, UITableVie
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         messages = CoreDataHelper.retrieveMessage()
+        getFaves()
+    }
+    
+    func getFaves() {
+        let faves = CoreDataHelper.retrieveFavoritedMessages()
+        if faves.count != 0 {
+            favoritedMessages = faves[0]
+            favoriteMessageArray = favoritedMessages?.message?.array as! [Message]
+        } else {
+            favoritedMessages = CoreDataHelper.newFavoriteMessages()
+            favoriteMessageArray = favoritedMessages?.message?.array as! [Message]
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -38,7 +52,7 @@ class historyViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "previousMessageTableViewCell", for: indexPath) as! previousMessageTableViewCell
-        var message = messages[indexPath.row]
+        let message = messages[indexPath.row]
         if let sender = message.sender, let body = message.message, let sendTime = message.sendTime {
             cell.senderLabel.text = sender
             cell.messageLabel.text = body
@@ -57,18 +71,21 @@ class historyViewController: UIViewController, UITableViewDataSource, UITableVie
             if !cell.favoriteButton.isSelected {
                 cell.favoriteButton.isSelected = false
                 message.favorite = false
-                for i in 0...self.favoritedMessages.count {
-                    let favoriteMessage = self.favoritedMessages[i]
+                for i in 0...self.favoriteMessageArray.count {
+                    let favoriteMessage = self.favoriteMessageArray[i]
                     if cell.senderLabel.text == favoriteMessage.sender && cell.messageLabel.text == favoriteMessage.message {
-                        self.favoritedMessages.remove(at: i)
+                        self.favoriteMessageArray.remove(at: i)
+                        self.favoritedMessages?.removeFromMessage(message)
+                        break
                     }
                 }
             } else {
                 cell.favoriteButton.isSelected = true
                 message.favorite = true
-                self.favoritedMessages.append(message)
+                self.favoriteMessageArray.append(message)
+                self.favoritedMessages?.addToMessage(message)
             }
-        
+            CoreDataHelper.saveMessage()
         }
         
         return cell
@@ -76,5 +93,15 @@ class historyViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 125
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let deletedMessage = messages[indexPath.row]
+            CoreDataHelper.deleteMessage(message: deletedMessage)
+            CoreDataHelper.saveMessage()
+            messages = CoreDataHelper.retrieveMessage()
+            getFaves()
+        }
     }
 }

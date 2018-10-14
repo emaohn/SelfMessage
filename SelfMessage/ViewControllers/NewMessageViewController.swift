@@ -19,6 +19,7 @@ class NewMessageViewController: UIViewController{
     @IBOutlet weak var senderTextField: UITextField!
     @IBOutlet weak var messageTextView: UITextView!
     
+    @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var timePicker: UIDatePicker!
     
     
@@ -41,26 +42,37 @@ class NewMessageViewController: UIViewController{
                 UserDefaults.standard.set(false, forKey: "notificationsEnabled")
             }
         })
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(getInfo), name: NSNotification.Name("GetInfo"), object: nil)
     }
     
     func setup() {
         //changing the UI, corners rounded
-        wholeView.layer.cornerRadius = 6
-        titleView.layer.cornerRadius = 6
-        infoView.layer.cornerRadius = 6
-        timeView.layer.cornerRadius = 6
-        cancelButton.layer.cornerRadius = 6
-        doneButton.layer.cornerRadius = 6
-        
+        wholeView.layer.cornerRadius = 10
+        titleView.layer.cornerRadius = 10
+        infoView.layer.cornerRadius = 10
+        timeView.layer.cornerRadius = 10
+        cancelButton.layer.cornerRadius = 10
+        doneButton.layer.cornerRadius = 10
+        messageTextView.layer.cornerRadius = 10
         doneButton.setTitleColor(UIColor.gray, for: UIControl.State.normal)
         
         timePicker.minuteInterval = 1
 
     }
     
+    @objc func getInfo(_ notification: Notification){
+        if let message = notification.userInfo?["message"] as? Message {
+           messageTextView.text = message.message
+            headerLabel.text = "Favorited Message"
+            
+        }
+    }
+    
     func reset() {
         messageTextView.text = ""
         senderTextField.text = ""
+        headerLabel.text = "Create A New Message"
     }
     
     @IBAction func doneButtonPressed(_ sender: Any) {
