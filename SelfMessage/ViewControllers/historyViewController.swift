@@ -11,7 +11,7 @@ import UIKit
 
 
 class historyViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
+    var newMessageViewOpen = false
     var messages = [Message]() {
         didSet {
             messagesTableView.reloadData()
@@ -19,6 +19,7 @@ class historyViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     var favoritedMessages: FavoritedMessages?
+    @IBOutlet weak var popupBottomConstraint: NSLayoutConstraint!
     
     var favoriteMessageArray: [Message] = []
     
@@ -26,6 +27,7 @@ class historyViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewDidLoad () {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(toggleNewMessageView2), name: NSNotification.Name("ToggleNewMessageView2"), object: nil)
         
     }
     
@@ -43,6 +45,19 @@ class historyViewController: UIViewController, UITableViewDataSource, UITableVie
         } else {
             favoritedMessages = CoreDataHelper.newFavoriteMessages()
             favoriteMessageArray = favoritedMessages?.message?.array as! [Message]
+        }
+    }
+    
+    @objc func toggleNewMessageView2() {
+        if newMessageViewOpen{
+            popupBottomConstraint.constant = -550
+            newMessageViewOpen = false
+        } else {
+            popupBottomConstraint.constant = 15
+            newMessageViewOpen = true
+        }
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
         }
     }
     
@@ -93,6 +108,12 @@ class historyViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 125
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        toggleNewMessageView2()
+        let userInfo = ["message": messages[indexPath.row]]
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "SendInfo"), object: nil, userInfo: userInfo)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

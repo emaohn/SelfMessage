@@ -129,7 +129,7 @@ extension menuViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             if favorites.count != 0 {
                 toggleNewMessageView()
-                let userInfo = ["message": favorites[indexPath.row - 1]]
+                let userInfo = ["message": favorites[indexPath.row]]
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "GetInfo"), object: nil, userInfo: userInfo)
 //                NotificationCenter.default.post(name: NSNotification.Name("GetInfo"), object: nil)
                 

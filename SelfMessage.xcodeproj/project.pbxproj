@@ -23,6 +23,7 @@
 		E8BC64B22171C07400D4A756 /* menuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8BC64B12171C07400D4A756 /* menuViewController.swift */; };
 		E8BC64B42171C0F900D4A756 /* historyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8BC64B32171C0F900D4A756 /* historyViewController.swift */; };
 		E8BC64B62171CB0100D4A756 /* messageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8BC64B52171CB0100D4A756 /* messageTableViewCell.swift */; };
+		E8E83AB421730EBC0052F26C /* NewMessageViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E83AB321730EBC0052F26C /* NewMessageViewController2.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		E8BC64B12171C07400D4A756 /* menuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = menuViewController.swift; sourceTree = "<group>"; };
 		E8BC64B32171C0F900D4A756 /* historyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = historyViewController.swift; sourceTree = "<group>"; };
 		E8BC64B52171CB0100D4A756 /* messageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = messageTableViewCell.swift; sourceTree = "<group>"; };
+		E8E83AB321730EBC0052F26C /* NewMessageViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageViewController2.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +110,7 @@
 				E8BC64B12171C07400D4A756 /* menuViewController.swift */,
 				E8BC64B32171C0F900D4A756 /* historyViewController.swift */,
 				E84AE0DB2171E9CB004CAD04 /* NewMessageViewController.swift */,
+				E8E83AB321730EBC0052F26C /* NewMessageViewController2.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -210,6 +213,7 @@
 				8465CBF52171D3C8003B763C /* DateConvertToString.swift in Sources */,
 				E8BC64B02171BE8200D4A756 /* CoreDataHelper.swift in Sources */,
 				E8BC64972171BD3300D4A756 /* AppDelegate.swift in Sources */,
+				E8E83AB421730EBC0052F26C /* NewMessageViewController2.swift in Sources */,
 				E8BC64B62171CB0100D4A756 /* messageTableViewCell.swift in Sources */,
 				E8BC64B22171C07400D4A756 /* menuViewController.swift in Sources */,
 				E8BC64B42171C0F900D4A756 /* historyViewController.swift in Sources */,
