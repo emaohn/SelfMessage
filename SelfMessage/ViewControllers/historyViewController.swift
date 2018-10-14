@@ -87,7 +87,7 @@ class historyViewController: UIViewController, UITableViewDataSource, UITableVie
             }
             CoreDataHelper.saveMessage()
         }
-        
+        cell.selectionStyle = .none
         return cell
     }
     

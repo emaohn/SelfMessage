@@ -80,7 +80,7 @@ extension menuViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 35))
-        view.backgroundColor = UIColor(red: 90/255.0, green: 200/255.0, blue: 250/255.0, alpha: 1)
+        view.backgroundColor = UIColor(red: 239/255.0, green: 239/255.0, blue: 244/255.0, alpha: 1)
         let label = UILabel(frame: CGRect(x: 15, y: 0, width: tableView.bounds.width - 30, height: 35))
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.textColor = UIColor.black
@@ -99,6 +99,7 @@ extension menuViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "createMessageTableViewCell", for: indexPath)
+            cell.selectionStyle = .none
             return cell
         }
         
@@ -107,9 +108,10 @@ extension menuViewController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "messageTableViewCell") as! messageTableViewCell
            // cell.senderLabel.text = message.sender
             cell.messageLabel.text = message.message
+            cell.selectionStyle = .none
             return cell
         }
-
+        
         return tableView.dequeueReusableCell(withIdentifier: "noFavoritesTableViewCell")!
         
     }
@@ -122,7 +124,7 @@ extension menuViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 0 {
+        if indexPath.section == 0 && indexPath.row == 0 {
             toggleNewMessageView()
         } else {
             if favorites.count != 0 {
