@@ -254,6 +254,10 @@
                                                     </label>
                                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3QJ-cv-BrI">
                                                         <rect key="frame" x="0.0" y="25" width="315" height="140"/>
+                                                        <connections>
+                                                            <outlet property="dataSource" destination="83E-TW-mz2" id="au2-h8-0Md"/>
+                                                            <outlet property="delegate" destination="83E-TW-mz2" id="EA0-VR-BsL"/>
+                                                        </connections>
                                                     </pickerView>
                                                 </subviews>
                                             </stackView>
@@ -330,7 +334,7 @@
                         <outlet property="infoView" destination="QOH-eU-ahz" id="mK3-ua-FmQ"/>
                         <outlet property="messageTextView" destination="svR-8D-Kzd" id="SVO-0r-WOm"/>
                         <outlet property="senderTextField" destination="Wad-V8-lYT" id="W6x-6L-4RK"/>
-                        <outlet property="timePicker2" destination="3QJ-cv-BrI" id="JSK-7o-m9B"/>
+                        <outlet property="timePicker1" destination="3QJ-cv-BrI" id="8zh-sH-dXw"/>
                         <outlet property="timeView" destination="NkV-fP-hAL" id="wlp-ck-rni"/>
                         <outlet property="titleView" destination="q7Y-99-TA7" id="ENH-cI-otE"/>
                         <outlet property="wholeView" destination="RRj-PL-E0V" id="HNG-jp-hS5"/>

@@ -10,24 +10,8 @@ import Foundation
 import UIKit
 import UserNotifications
 
-class NewMessageViewController2: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 3
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        switch component {
-        case 0:
-            return 25
-        case 1,2:
-            return 60
-            
-        default:
-            return 0
-        }
-    }
-    
-    
+class NewMessageViewController2: UIViewController {
+   
     
     
     @IBOutlet weak var wholeView: UIView!
@@ -44,14 +28,12 @@ class NewMessageViewController2: UIViewController, UIPickerViewDelegate, UIPicke
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var doneButton: UIButton!
     
-    var timeInterval = 5.0
     var hour = 0
     var minutes = 0
-    var seconds = 0
-    var pickerData: [[String]] = [[String]]()
-    
-    
-    
+    var seconds = 5
+    let pickerData = [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24],
+    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59],
+    [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,11 +42,7 @@ class NewMessageViewController2: UIViewController, UIPickerViewDelegate, UIPicke
         timePicker2.dataSource = self
         timePicker2.delegate = self
         hideKeyboardWhenTappedAround()
-        
-        pickerData = [["1", "2", "3", "4"],
-                      ["1", "2", "3", "4"],
-                      ["1", "2", "3", "4"]]
-        
+
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge], completionHandler: {didAllow, error in
             if didAllow {
                 UserDefaults.standard.set(true, forKey: "notificationsEnabled")
@@ -86,9 +64,6 @@ class NewMessageViewController2: UIViewController, UIPickerViewDelegate, UIPicke
         doneButton.layer.cornerRadius = 10
         messageTextView.layer.cornerRadius = 10
         doneButton.setTitleColor(UIColor.gray, for: UIControl.State.normal)
-        
-//        timePicker.minuteInterval = 1
-        
     }
     
     @objc func SendInfo(_ notification: Notification){
@@ -96,7 +71,6 @@ class NewMessageViewController2: UIViewController, UIPickerViewDelegate, UIPicke
             messageTextView.text = message.message
             senderTextField.text = message.sender
             headerLabel.text = "Resend Previous Message"
-            
         }
     }
     
@@ -104,6 +78,15 @@ class NewMessageViewController2: UIViewController, UIPickerViewDelegate, UIPicke
         messageTextView.text = ""
         senderTextField.text = ""
         headerLabel.text = "Resend Previous Message"
+        
+        hour = 0
+        minutes = 0
+        seconds = 5
+        
+        timePicker2.reloadAllComponents()
+        timePicker2.selectRow(0, inComponent: 0, animated: true)
+        timePicker2.selectRow(0, inComponent: 1, animated: true)
+        timePicker2.selectRow(0, inComponent: 2, animated: true)
     }
     
     @IBAction func doneButtonPressed(_ sender: Any) {
@@ -119,63 +102,8 @@ class NewMessageViewController2: UIViewController, UIPickerViewDelegate, UIPicke
             
             let content = UNMutableNotificationContent()
             
-            //            guard let sender = senderTextField.text, let message2 = messageTextView.text else { return }
             content.title = NSString.localizedUserNotificationString(forKey: senderTextField.text ?? "", arguments: nil)
             content.body = NSString.localizedUserNotificationString(forKey: messageTextView.text, arguments: nil)
-            
-//            let interval = timePicker.date
-//            let components = Calendar.current.dateComponents([.hour, .minute, .second], from: interval)
-//            let hour = components.hour
-//            let minutes = components.minute
-//            let seconds = components.second
-//
-//            let numSeconds = (hour! * 60 * 60) + (minutes! * 60) + (seconds!)
-            
-            
-            func numberOfComponents(in pickerView: UIPickerView) -> Int {
-                return 3
-            }
-            
-            func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-                switch component {
-                case 0:
-                    return 25
-                case 1,2:
-                    return 60
-                    
-                default:
-                    return 0
-                }
-            }
-            
-            func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
-                return pickerView.frame.size.width/3
-            }
-            
-            func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-                switch component {
-                case 0:
-                    return "\(pickerData[component][row]) Hour"
-                case 1:
-                    return "\(pickerData[component][row]) Minute"
-                case 2:
-                    return "\(pickerData[component][row]) Second"
-                default:
-                    return ""
-                }
-            }
-            func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-                switch component {
-                case 0:
-                    hour = row
-                case 1:
-                    minutes = row
-                case 2:
-                    seconds = row
-                default:
-                    break;
-                }
-            }
             
             let numSeconds = hour * 60 * 60 + minutes * 60 + seconds
             
@@ -211,6 +139,45 @@ class NewMessageViewController2: UIViewController, UIPickerViewDelegate, UIPicke
     @IBAction func cancelButtonPressed(_ sender: Any) {
         NotificationCenter.default.post(name: NSNotification.Name("ToggleNewMessageView2"), object: nil)
         reset()
+    }
+}
+
+extension NewMessageViewController2: UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 3
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerData[component].count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
+        return pickerView.frame.size.width/3
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        switch component {
+        case 0:
+            return "\(pickerData[component][row]) hours"
+        case 1:
+            return "\(pickerData[component][row]) min"
+        case 2:
+            return "\(pickerData[component][row]) sec"
+        default:
+            return ""
+        }
+    }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        switch component {
+        case 0:
+            hour = pickerData[component][row]
+        case 1:
+            minutes = pickerData[component][row]
+        case 2:
+            seconds = pickerData[component][row]
+        default:
+            print("fail")
+        }
     }
 }
 
